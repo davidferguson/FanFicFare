@@ -163,7 +163,7 @@ def main(argv=None, parser=None, passed_defaultsini=None, passed_personalini=Non
             except Exception, e:
                 print "URL(%s) Failed: Exception (%s). Run URL individually for more detail."%(url,e)
     else:
-        do_download(urls[0],
+        return do_download(urls[0],
                     options,
                     passed_defaultsini,
                     passed_personalini)
@@ -359,12 +359,14 @@ def do_download(arg,
 
             output_filename = write_story(configuration, adapter, options.format, options.metaonly)
 
+        metadata = adapter.story.metadata
+        metadata['output_filename'] = output_filename
+        
         if not options.metaonly and adapter.getConfig('post_process_cmd'):
-            metadata = adapter.story.metadata
-            metadata['output_filename'] = output_filename
             call(string.Template(adapter.getConfig('post_process_cmd')).substitute(metadata), shell=True)
 
         del adapter
+        return metadata
 
     except exceptions.InvalidStoryURL as isu:
         print isu
