@@ -358,17 +358,18 @@ def do_download(arg,
                 pprint.pprint(adapter.chapterUrls)
 
             txt_filename = write_story(configuration, adapter, "txt", False)
-            epub_filename = write_story(configuration, adapter, "epub", False)
-            pdf_filename = write_story(configuration, adapter, "pdf", False)
+            #epub_filename = write_story(configuration, adapter, "epub", False)
+            #pdf_filename = write_story(configuration, adapter, "pdf", False)
 
-        metadata = adapter.story.metadata
-        metadata['output_filename'] = [txt_filename,epub_filename,pdf_filename]
+        #metadata = adapter.story.metadata
+        #metadata['output_filename'] = [txt_filename,epub_filename,pdf_filename]
         
         if not options.metaonly and adapter.getConfig('post_process_cmd'):
             call(string.Template(adapter.getConfig('post_process_cmd')).substitute(metadata), shell=True)
 
         del adapter
-        return metadata
+        return txt_filename
+        #return metadata
 
     except exceptions.InvalidStoryURL as isu:
         print isu
