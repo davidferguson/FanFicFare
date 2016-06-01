@@ -24,7 +24,7 @@ from writer_html import HTMLWriter
 from writer_txt  import TextWriter
 from writer_epub import EpubWriter
 from writer_mobi import MobiWriter
-from writer_pdf  import PdfWriter
+#from writer_pdf  import PdfWriter
 
 def getWriter(type,config,story):
     if type == "html":
